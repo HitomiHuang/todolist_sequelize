@@ -11,8 +11,8 @@ module.exports = {
     return queryInterface.bulkInsert('Users', [{
       name: SEED_USER.name,
       email: SEED_USER.email,
-      password: bcrypt.hashSync(SEED_USER.password, bcrypt.genSalt(10), null),
-      creatdAt: new Date(),
+      password: bcrypt.hashSync(SEED_USER.password, bcrypt.genSaltSync(10), null),
+      createdAt: new Date(),
       updatedAt: new Date()
     }], {})
       .then(userId => queryInterface.bulkInsert('Todos',
@@ -20,14 +20,14 @@ module.exports = {
         ({
           name: `name-${i}`,
           UserId: userId,
-          creatdAt: new Date(),
+          createdAt: new Date(),
           updatedAt: new Date()
         })
       ), {}))
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Todo', null, {})
+    return queryInterface.bulkDelete('Todos', null, {})
       .then(() => queryInterface.bulkDelete('Users', null, {}))
   }
 };
