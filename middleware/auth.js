@@ -1,5 +1,5 @@
 module.exports = {
-  anthenticator: (req, res, next) => {
+  authenticator: (req, res, next) => {
     if (req.isAuthenticated()) {
       return next()
     }
