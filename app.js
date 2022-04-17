@@ -2,14 +2,15 @@ const express = require('express')
 const session = require('express-session')
 const usePassport = require('./config/passport')
 const exphbs = require('express-handlebars')
-const methodOverride = require('method-override')
 const routes = require('./routes')
 const app = express()
+const methodOverride = require('method-override')
 const PORT = 3000
 
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs'}))
 app.set('view engine',  'hbs')
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 app.use(session({
   secret: 'ThisIsMySecret',
   resave: false,
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
   next()
 })
 app.use(routes)
-app.use(methodOverride('_method'))
+
 
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`)
